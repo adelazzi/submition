@@ -1,0 +1,84 @@
+\begin{tikzpicture}[
+node distance=7mm and 8mm,
+box/.style={
+draw,
+rounded corners=2pt,
+align=center,
+text width=5.4cm,
+minimum height=1cm,
+inner sep=5pt,
+font=\small
+},
+side/.style={
+draw,
+rounded corners=2pt,
+align=left,
+text width=4.5cm,
+minimum height=1cm,
+inner sep=5pt,
+font=\small
+},
+stage/.style={
+font=\small\bfseries,
+align=center,
+text width=1.5cm
+},
+arrow/.style={-{Latex[length=2mm]}, thick}
+]
+
+% Identification
+\node[box] (identified) {
+    Records identified through database searches\\
+    \textbf{$n = 37{,}566$}
+};
+
+\node[side, right=of identified] (duplicates) {
+    Duplicate records removed\\
+    $n = 73$
+};
+
+% Screening
+\node[box, below=of identified] (screened) {
+    Records screened by title and abstract\\
+    \textbf{$n = 37{,}493$}
+};
+
+\node[side, right=of screened] (excluded1) {
+Records excluded during title and abstract screening\\
+$n = 36{,}933$
+};
+
+% Eligibility
+\node[box, below=of screened] (assessed) {
+    Full-text publications assessed for eligibility\\
+    \textbf{$n = 560$}
+};
+
+\node[side, right=of assessed] (excluded2) {
+    Full-text publications excluded\\
+    $n = 348$\\[2pt]
+};
+
+% Included
+\node[box, below=of assessed] (included) {
+    Studies included in the final review\\
+    \textbf{$n = 212$}
+};
+
+% Main flow
+\draw[arrow] (identified) -- (screened);
+\draw[arrow] (screened) -- (assessed);
+\draw[arrow] (assessed) -- (included);
+
+% Exclusion flows
+\draw[arrow] (identified) -- (duplicates);
+\draw[arrow] (screened) -- (excluded1);
+\draw[arrow] (assessed) -- (excluded2);
+
+% PRISMA stages
+\node[stage, left=10mm of identified] {Identification};
+\node[stage, left=5mm of screened] {Screening};
+\node[stage, left=5mm of assessed] {Eligibility};
+\node[stage, left=5mm of included] {Included};
+
+\end{tikzpicture}
